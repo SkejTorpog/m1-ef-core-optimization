@@ -1,0 +1,6 @@
+@m1_ef_core_optimization_HostAddress = http://localhost:5153
+
+GET {{m1_ef_core_optimization_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
