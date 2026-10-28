@@ -21,8 +21,13 @@ public class AppDbContext : DbContext
     {
         public void Configure(EntityTypeBuilder<Courier> builder)
         {
-            builder.ToTable("courier").HasMany(c => c.Deliveries).WithOne(d => d.Courier);
-            builder.Property(c => c.VehicleType).HasConversion<string>();
+            builder.ToTable("courier");
+            builder
+                .HasMany(c => c.Deliveries)
+                .WithOne(d => d.Courier)
+                .HasForeignKey(d => d.CourierId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(d => d.VehicleType).IsRequired();
         }
     }
 
@@ -30,8 +35,11 @@ public class AppDbContext : DbContext
     {
         public void Configure(EntityTypeBuilder<Delivery> builder)
         {
-            builder.ToTable("delivery").HasIndex(d => d.CourierId);
-            builder.Property(d => d.Status).HasConversion<string>();
+            builder.ToTable("delivery");
+            builder
+                .HasIndex(d => new { d.CourierId, d.Status })
+                .HasDatabaseName("ix_delivery_courier_id_status");
+            builder.Property(d => d.Status).IsRequired();
         }
     }
 }

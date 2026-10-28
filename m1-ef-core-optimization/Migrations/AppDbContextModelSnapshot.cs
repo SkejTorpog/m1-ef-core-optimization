@@ -34,9 +34,8 @@ namespace m1_ef_core_optimization.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<string>("VehicleType")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("VehicleType")
+                        .HasColumnType("integer")
                         .HasColumnName("vehicle_type");
 
                     b.HasKey("Id")
@@ -56,7 +55,7 @@ namespace m1_ef_core_optimization.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("courier_id");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -72,16 +71,15 @@ namespace m1_ef_core_optimization.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("fare");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
                         .HasColumnName("status");
 
                     b.HasKey("Id")
                         .HasName("pk_delivery");
 
-                    b.HasIndex("CourierId")
-                        .HasDatabaseName("ix_delivery_courier_id");
+                    b.HasIndex("CourierId", "Status")
+                        .HasDatabaseName("ix_delivery_courier_id_status");
 
                     b.ToTable("delivery", (string)null);
                 });
@@ -91,7 +89,7 @@ namespace m1_ef_core_optimization.Migrations
                     b.HasOne("m1_ef_core_optimization.Models.Courier", "Courier")
                         .WithMany("Deliveries")
                         .HasForeignKey("CourierId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("fk_delivery_courier_courier_id");
 

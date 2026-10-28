@@ -4,7 +4,7 @@ public class Courier
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     public VehicleType VehicleType { get; set; }
 
