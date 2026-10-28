@@ -18,21 +18,9 @@ namespace m1_ef_core_optimization.Migrations
                 name: "ix_delivery_courier_id",
                 table: "delivery");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "status",
-                table: "delivery",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "vehicle_type",
-                table: "courier",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
+            migrationBuilder.Sql("ALTER TABLE \"delivery\" ALTER COLUMN \"status\" TYPE integer USING status::integer;");
+            
+            migrationBuilder.Sql("ALTER TABLE \"courier\" ALTER COLUMN \"vehicle_type\" TYPE integer USING vehicle_type::integer;");
 
             migrationBuilder.CreateIndex(
                 name: "ix_delivery_courier_id_status",
@@ -59,21 +47,9 @@ namespace m1_ef_core_optimization.Migrations
                 name: "ix_delivery_courier_id_status",
                 table: "delivery");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "status",
-                table: "delivery",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer");
+            migrationBuilder.Sql("ALTER TABLE \"delivery\" ALTER COLUMN \"status\" TYPE text;");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "vehicle_type",
-                table: "courier",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer");
+            migrationBuilder.Sql("ALTER TABLE \"courier\" ALTER COLUMN \"vehicle_type\" TYPE text;");
 
             migrationBuilder.CreateIndex(
                 name: "ix_delivery_courier_id",
