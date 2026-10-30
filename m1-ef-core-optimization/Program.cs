@@ -22,6 +22,7 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<AppDbContext>();
 await context.Database.MigrateAsync();
+await SeedData.InitializeAsync(context);
 
 app.UseHttpsRedirection();
 
