@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options
         .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseSnakeCaseNamingConvention()
+        .LogTo(Console.WriteLine)
 );
 
 var app = builder.Build();
