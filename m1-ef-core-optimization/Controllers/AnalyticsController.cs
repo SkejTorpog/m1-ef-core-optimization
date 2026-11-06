@@ -15,7 +15,7 @@ public class AnalyticsController : ControllerBase
     )
     {
         var deliveriesSummary = await context
-            .Deliveries.AsNoTracking()
+            .Deliveries
             .Where(d => d.Status == DeliveryStatus.Completed)
             .GroupBy(d => new
             {
